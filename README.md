@@ -1,3 +1,40 @@
+Quokka support for `import 'server-only'`
+========================================
+
+# Repro
+
+!!! Run Quokka on `scratch.ts`
+
+Get:
+
+> This module cannot be imported from a Client Component module. It should only be used from a Server Component.
+
+# Additional Info
+
+'server-only' is a "marker" package used in NextJS to fail if some module gets imported from anything other than a React Server Component.
+
+https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment
+
+The code for the 'server-only' package is https://www.npmjs.com/package/server-only?activeTab=code
+
+It seems to take advantage of https://nodejs.org/api/packages.html#conditional-exports
+
+I cannot get this to work with Quokka. I tried passing the `-C react-server` to Quokka (node flag defined https://nodejs.org/api/cli.html#-c-condition---conditionscondition) but to no avail.
+
+# This Repo Setup
+
+1. npx create-next-app@latest
+   * use default settings
+2. Add 'server-only' dept
+3. Create dummy `./lib/config.ts` that imports 'server-only'
+4. Create `scratch.ts` to demo
+
+---
+
+# NextJS boilerplate below
+
+----
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
